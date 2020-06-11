@@ -1210,3 +1210,10 @@ Vamos criar a listagem de usuários prestadores de serviço, embora seja a mesma
 - Criamos um campo virtual url e para montar a URL da imagem
 - Demos um apelido para File, para se chamar avatar na criação do objeto de retorno da requisição.
 - Permitimos o servidor servir o arquivo de forma estática
+
+## Aula 21 - Migration e model de agendamento
+
+- Criar model e migration da tabela de agendamento
+- Todas vez que usuário marcar um agendamento com algum provedor de seriviço, irá gerar um registro na tabela de agendamento
+- Relacionar usuário cliente e o usuário provider na tabela de agendamento
+- Referenciar o model Appointment no models dentro do database/index.js
