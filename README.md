@@ -650,3 +650,45 @@ export default User;
 
 Criei a classe User que extend de Model do sequelize para receber todos métodos que tem na Model, agora a nossa classe de domínio User é uma Model, devido a herança.
 De dentro do método statico init passo uma parametro sequelize do Model, e chamo o super da model, informando os atributos da tabela users, e com isso é feito o mapeamento do ORM entre as entidades do banco de dados e o objeto da aplicação, para entidade User.
+
+## Aula 10 - Loader de Models
+
+Para conectar a aplicação com banco de dados  e carregar os models, temos que criar um o arquivo index.js na pasta database.
+```
+import Sequelize from 'sequelize';
+import User from '../app/models/User';
+import databaseConfig from '../config/database';
+
+const models = [User];
+
+class Database {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.connection = new Sequelize(databaseConfig);
+    models.map(model => model.init(this.connection));
+  }
+}
+export default new Database();
+```
+
+Quando esse arquivo é importando, ele recebe uma instância do Database, que chama a função init, que instancia para o this.connection a Sequelize com as configurações de conexão com banco de dados. E para cada model que eu importei eu passo a conexão.
+
+E agora só testar, veja o código da aula.
+
+```
+// Quando chamo a rota '/', cadastro o usuário e retorno os dados do banco de dados
+// http://localhost:3333/
+
+{
+  "id": 1,
+  "name": "Marlon Leite",
+  "email": "marlonleite@gmail.com",
+  "password_hash": "123456",
+  "updatedAt": "2019-09-13T15:39:29.116Z",
+  "createdAt": "2019-09-13T15:39:29.116Z",
+  "provider": false
+}
+```
