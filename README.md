@@ -1,6 +1,6 @@
 # GoBarber
 
-## Configurando a estrutura do projeto
+## Aula 01 - Configurando a estrutura do projeto
 
 ```
 yarn add express
