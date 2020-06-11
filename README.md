@@ -1462,3 +1462,43 @@ import Notification from  '../schemas/Notification';
 ```
 
 Após criar o agendamento, eu crio uma notificação e armazeno no banco de dados, esse dado não é estruturado, eu lanço diretamente no content o nome do usuário e a data, eu não preciso relacionar Notification com Users e nem Appointments e fazer joins e mais joins de SQL, pois a notificação é do estado atual, que o usuário está, se ele mudar o nome dele, isso não é importante para a notificação nesse momento, e com o mongodb ganhasse bastante performance e facilidade justamente por não ter que escrever Queries SQL gigantes e outra vantagem é que podemos escrever em JS para fazer consultas no mongodb.
+
+## Aula 29 - Listando notificações do usuário
+
+- Criar uma rota notifications
+- Criar o controller `NotificationController.js`:
+
+```
+import Notification from '../schemas/Notification';
+import User from '../models/User';
+
+class NotificationController {
+  async index(req, res) {
+    /**
+     * Check if loggedUser is a provider
+     */
+    const checkIsProvider = await User.findOne({
+      where: {
+        id: req.userId,
+        provider: true,
+      },
+    });
+
+    if (!checkIsProvider) {
+      return res
+        .status(401)
+        .json({ error: 'Only provider can load notifications' });
+    }
+
+    const notifications = await Notification.find({
+      user: req.userId,
+    })
+      .sort({ createdAt: 'desc' })
+      .limit(20);
+
+    return res.json(notifications);
+  }
+}
+
+export default new NotificationController();
+```
