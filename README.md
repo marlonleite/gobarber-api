@@ -1217,3 +1217,8 @@ Vamos criar a listagem de usuários prestadores de serviço, embora seja a mesma
 - Todas vez que usuário marcar um agendamento com algum provedor de seriviço, irá gerar um registro na tabela de agendamento
 - Relacionar usuário cliente e o usuário provider na tabela de agendamento
 - Referenciar o model Appointment no models dentro do database/index.js
+
+## Aula 22 - Agendamento de serviço
+
+- Criar a rota de agendamento e o controller
+- O cliente pode selecionar apenas um usuário que seja provider
